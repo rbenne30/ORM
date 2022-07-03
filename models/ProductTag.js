@@ -1,3 +1,5 @@
+const { STRING } = require('sequelize');
+const { INTEGER } = require('sequelize');
 const { Model, DataTypes } = require('sequelize');
 
 const sequelize = require('../config/connection');
@@ -8,7 +10,7 @@ ProductTag.init(
   {
     // define columns
     productID: {
-      type: DataTypes.INTEGER,
+      type: INTEGER,
       primaryKey: true 
     }
   },
