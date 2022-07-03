@@ -4,6 +4,9 @@ const { Category, Product } = require('../../models');
 // The `/api/categories` endpoint
 
 router.get('/', (req, res) => {
+  Category.findAll().then((categorydata) => {
+    res.json(categorydata);
+  });
   // find all categories
   // be sure to include its associated Products
 });
@@ -14,15 +17,50 @@ router.get('/:id', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-  // create a new category
+  category.create([
+    {
+    category_name: 'pants',
+    }
+  ]).then(() => {
+    res.send('Seeding Success!');
+  });
 });
+  // create a new category
+
 
 router.put('/:id', (req, res) => {
-  // update a category by its `id` value
+  category.update({
+    category_id: req.body.category_id,
+  },
+  {
+  where: {
+    category_id: req.params.category_id,
+  },
+}
+)
+.then((updatedCategory) => {
+  res.json(updatedCategory);
+})
+.catch((err) => {
+  console.log(err);
+  res.json(err);
 });
+});
+  // update a category by its `id` value
+
 
 router.delete('/:id', (req, res) => {
-  // delete a category by its `id` value
+  Category.destroy({
+    where: {
+      Category_id: req.params.Category_id,
+    },
+  })
+    .then((deletedCategory) => {
+      res.json(deletedCategory);
+    })
+    .catch((err) => res.json(err));
 });
+  // delete a category by its `id` value
+
 
 module.exports = router;
