@@ -21,50 +21,58 @@ router.post('/seed', (req, res) => {
   Tag.create({
     tag_name: req.body.tag_name
   })
-  .then(dbTagData => res.json(dbTagData))
-  .catch(err => {
-    console.log(err);
-    res.status(500).json(err);
-  });
+    .then(dbTagData => res.json(dbTagData))
+    .catch(err => {
+      console.log(err);
+      res.status(500).json(err);
+    });
 });
 
-  // create a new tag
+// create a new tag
 
 router.put('/:tag:id', (req, res) => {
   tag.update({
     tag_id: req.body.tag_id,
   },
-  {
-  where: {
-    tag_id: req.params.tag_id,
-  },
-}
-)
-.then((updatedTag) => {
-  res.json(updatedTag);
-})
-.catch((err) => {
-  console.log(err);
-  res.json(err);
+    {
+      where: {
+        tag_id: req.params.tag_id,
+      },
+    }
+  )
+    .then((updatedTag) => {
+      res.json(updatedTag);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.json(err);
+    });
 });
-});
 
 
-  // update a tag's name by its `id` value
+// update a tag's name by its `id` value
 
-router.delete('/:Tag_id', (req, res) => {
+router.delete('/:id', (req, res) => {
   Tag.destroy({
     where: {
-      Tag_id: req.params.tag_id,
-    },
-  })
-    .then((deletedTag) => {
-      res.json(deletedTag);
-    })
-    .catch((err) => res.json(err));
-});
+      id: req.params.id
+    }
 
-  // delete on tag by its `id` value
+  })
+    .then(dbTagData => {
+    if (!dgTagData) {
+      res.status(404).json({ message: 'No tag found with this id' });
+      return;
+    }
+    res.json(dgTagData);
+  })
+  .catch(err => {
+    console.log(err);
+    res.status(500).json(err);
+  });
+  });
+
+// delete on tag by its `id` value
 
 
 module.exports = router;
