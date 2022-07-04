@@ -17,13 +17,15 @@ router.get('/:id', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-  category.create([
-    {
-    category_name: 'pants',
-    }
-  ]).then(() => {
-    res.send('Seeding Success!');
-  });
+  // create a new category
+  Category.create({
+      category_name: req.body.category_name
+  })
+      .then(dbCategoryData => res.json(dbCategoryData))
+      .catch(err => {
+          console.log(err);
+          res.status(500).json(err);
+      });
 });
   // create a new category
 
