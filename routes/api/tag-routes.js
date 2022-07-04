@@ -18,12 +18,13 @@ router.get('/:id', (req, res) => {
 });
 
 router.post('/seed', (req, res) => {
-  tag.create([
-    {
-    tag_name: 'country music',
-    }
-  ]).then(() => {
-    res.send('Seeding Success!');
+  Tag.create({
+    tag_name: req.body.tag_name
+  })
+  .then(dbTagData => res.json(dbTagData))
+  .catch(err => {
+    console.log(err);
+    res.status(500).json(err);
   });
 });
 
