@@ -9,8 +9,14 @@ class Category extends Model {Product}
 Category.init(
   {
     // define columns
-    CategoryName: {
-      type: String,
+    id:{
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      primaryKey: true,
+      autoIncrement: true
+    },
+    category_name: {
+      type: DataTypes.String,
       allowNull: true
     }
   },
